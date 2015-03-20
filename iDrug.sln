@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iDrug", "iDrug\iDrug.csproj", "{559B5515-A823-4FF5-AAFF-37276E29AAFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{559B5515-A823-4FF5-AAFF-37276E29AAFC}.Debug|x86.ActiveCfg = Debug|x86
+		{559B5515-A823-4FF5-AAFF-37276E29AAFC}.Debug|x86.Build.0 = Debug|x86
+		{559B5515-A823-4FF5-AAFF-37276E29AAFC}.Release|x86.ActiveCfg = Release|x86
+		{559B5515-A823-4FF5-AAFF-37276E29AAFC}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
