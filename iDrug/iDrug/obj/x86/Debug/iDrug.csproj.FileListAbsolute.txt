@@ -1,0 +1,13 @@
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\bin\Debug\iDrug.exe
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\bin\Debug\iDrug.pdb
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\App.g.cs
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\iDrug_MarkupCompile.cache
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\iDrug.g.resources
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\iDrug.Properties.Resources.resources
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\iDrug.csproj.GenerateResource.Cache
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\iDrug.exe
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\iDrug.pdb
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\MainWindow.baml
+C:\Users\sieradzki\AppData\Local\Temporary Projects\iDrug\obj\x86\Debug\MainWindow.g.cs
+C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.exe
+C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.pdb
