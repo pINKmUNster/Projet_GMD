@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using iDrug.DB;
 
 namespace iDrug
 {
@@ -26,7 +27,8 @@ namespace iDrug
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            MySql bdd = new MySql();
+            Sql bdd = new Sql();
+            
         }
     }
 }

@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace iDrug.DB
 {
-    class MySql
+    class Sql
     {
         string host = "netpune.telecomnancy.univ-lorraine.fr";
         string database = "gmd";
@@ -16,7 +16,7 @@ namespace iDrug.DB
         MySqlConnection connection;
 
 
-        public MySql()
+        public Sql()
         {
         this.InitConnexion();
         }
