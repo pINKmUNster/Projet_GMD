@@ -28,10 +28,26 @@ namespace iDrug
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            Sql bdd = new Sql();
-            bdd.connection.Open();
-            MySqlCommand cmd = bdd.connection.CreateCommand();
+            try
+            {
+                Sql bdd = new Sql();
+                bdd.connection.Open();
+                MySqlCommand cmd = bdd.connection.CreateCommand();
+                cmd.CommandText = " SHOW COLUMNS from  adverse_effects_raw ";
+                MySqlDataReader reader; 
+                
+                reader = cmd.ExecuteReader();
 
+
+                while (reader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

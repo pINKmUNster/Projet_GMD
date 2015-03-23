@@ -22,3 +22,4 @@ C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x
 C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.g.resources
 C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.Properties.Resources.resources
 C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.csproj.GenerateResource.Cache
+C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug_Content.g.cs
