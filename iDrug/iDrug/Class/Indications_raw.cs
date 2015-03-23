@@ -7,5 +7,8 @@ namespace iDrug.Class
 {
     class Indications_raw
     {
+        private string label;
+        private string i_cui;
+        private string i_name;
     }
 }

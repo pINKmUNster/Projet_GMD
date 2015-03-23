@@ -7,5 +7,8 @@ namespace iDrug.Class
 {
     class Adverse_effects_raw
     {
+        private string label;
+        private string se_cui;
+        private string se_name;
     }
 }
