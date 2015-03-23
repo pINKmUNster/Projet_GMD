@@ -33,7 +33,10 @@ namespace iDrug
                 Sql bdd = new Sql();
                 bdd.connection.Open();
                 MySqlCommand cmd = bdd.connection.CreateCommand();
-                cmd.CommandText = " SHOW COLUMNS from  adverse_effects_raw ";
+                
+                cmd.CommandText = " SHOW COLUMNS from label_mapping ";
+               // cmd.CommandText = " SELECT * FROM adverse_effects_raw LIMIT 1 ";
+
                 MySqlDataReader reader; 
                 
                 reader = cmd.ExecuteReader();
@@ -41,7 +44,7 @@ namespace iDrug
 
                 while (reader.Read())
                 {
-
+                    RT_TEST.AppendText(reader.GetString(0) + "  " + reader.GetString(1) +"  " + reader.GetString(2) + "\n");
                 }
             }
             catch (Exception ex)
@@ -49,5 +52,7 @@ namespace iDrug
                 MessageBox.Show(ex.Message);
             }
         }
+
+      
     }
 }
