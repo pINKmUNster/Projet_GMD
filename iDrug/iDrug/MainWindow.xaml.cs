@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using iDrug.DB;
+using MySql.Data.MySqlClient;
 
 namespace iDrug
 {
@@ -28,7 +29,9 @@ namespace iDrug
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Sql bdd = new Sql();
-            
+            bdd.connection.Open();
+            MySqlCommand cmd = bdd.connection.CreateCommand();
+
         }
     }
 }
