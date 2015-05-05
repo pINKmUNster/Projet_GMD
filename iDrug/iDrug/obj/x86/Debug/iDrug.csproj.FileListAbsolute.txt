@@ -23,3 +23,17 @@ C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x
 C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.Properties.Resources.resources
 C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug.csproj.GenerateResource.Cache
 C:\Users\sieradzki\Documents\Visual Studio 2010\Projects\iDrug\iDrug\iDrug\obj\x86\Debug\iDrug_Content.g.cs
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\bin\Debug\iDrug.exe
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\bin\Debug\iDrug.pdb
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\bin\Debug\MySql.Data.dll
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug.csprojResolveAssemblyReference.cache
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\MainWindow.baml
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\App.g.cs
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug_Content.g.cs
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug_MarkupCompile.cache
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug.g.resources
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug.Properties.Resources.resources
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug.csproj.GenerateResource.Cache
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug.exe
+C:\Users\Anthony\Desktop\Cours\2A\S2\GMD\Projet\iDrug\iDrug\obj\x86\Debug\iDrug.pdb

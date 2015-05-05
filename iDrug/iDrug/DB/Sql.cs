@@ -31,7 +31,7 @@ namespace iDrug.DB
 
                 // Création de la chaîne de connexion
                 string connectionString = "SERVER=" + host + "; DATABASE=" + database + "; UID=" + login + "; PASSWORD=" + pwd;
-                string connectionString1 = "SERVER=neptune.telecomnancy.univ-lorraine.fr; DATABASE=gmd; UID=gmd-read; PASSWORD=esial;";
+                //string connectionString1 = "SERVER=neptune.telecomnancy.univ-lorraine.fr; DATABASE=gmd; UID=gmd-read; PASSWORD=esial;";
                 
                 
                 this.connection = new MySqlConnection(connectionString);
