@@ -1,5 +1,9 @@
 <?php
-	class Txt {
+	//Include other files
+	require('LineTxt.php');
+	
+	class Txt
+	{
 		
 	}
 ?>

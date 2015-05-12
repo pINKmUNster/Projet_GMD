@@ -65,5 +65,9 @@ else
 	else
 		echo "FALSE";
   }
+  if($_GET['do']=="txt")
+  {
+    require("Models\TXT_CSV\Txt.php");
+  }
 }
 ?>
