@@ -15,6 +15,7 @@
 		private $path;
 		private $right;
 		private $lineCsv;
+		private $EOF;
 		
 		
 		/**************
@@ -28,6 +29,7 @@
 			$this->setRight($right);
 			$this->setBoolOpen(FALSE);
 			$this->setLineNumber(0);
+			$this->setEOF(FALSE);
 		}
 		
 		
@@ -60,6 +62,11 @@
 			$this->lineCsv = $lineCsvTmp;
 		}
 		
+		public function setEOF($EOFTmp)
+		{
+			$this->EOF = $EOFTmp;
+		}
+		
 		
 		/**********
 		* Getters *
@@ -88,6 +95,11 @@
 		public function getLineCsv()
 		{
 			return $this->lineCsv;
+		}
+		
+		public function getEOF()
+		{
+			return $this->EOF;
 		}
 		
 		
@@ -128,7 +140,7 @@
 		//To recover the next line
 		public function nextLine()
 		{
-			if ($this->boolOpen == TRUE)
+			if ($this->boolOpen == TRUE && $this->EOF == FALSE)
 			{
 				// $this->SplFileObject->fgetcsv() contains
 				// array (size=8)
@@ -141,17 +153,26 @@
 				// 6 => string 'Semantic_Types'
 				// 7 => string 'Parents'
 				
+				//Data
 				$data = $this->SplFileObject->fgetcsv();
 				
-				//Load in LineCsv
-				$this->lineCsv->setClass_ID($data[0]);
-				$this->lineCsv->setPreferred_Label($data[1]);
-				$this->lineCsv->setSynonyms($data[2]);
-				$this->lineCsv->setDefinitions($data[3]);
-				$this->lineCsv->setObsolete($data[4]);
-				$this->lineCsv->setCUI($data[5]);
-				$this->lineCsv->setSemantic_Types($data[6]);
-				$this->lineCsv->setParents($data[7]);
+				//LineNumber
+				$this->lineNumber = $this->lineNumber + 1;
+				
+				if ($this->SplFileObject->eof() == TRUE || $data[0] == NULL)
+					$this->EOF = TRUE;
+				else
+				{
+					//Load in LineCsv
+					$this->lineCsv->setClass_ID($data[0]);
+					$this->lineCsv->setPreferred_Label($data[1]);
+					$this->lineCsv->setSynonyms($data[2]);
+					$this->lineCsv->setDefinitions($data[3]);
+					$this->lineCsv->setObsolete($data[4]);
+					$this->lineCsv->setCUI($data[5]);
+					$this->lineCsv->setSemantic_Types($data[6]);
+					$this->lineCsv->setParents($data[7]);
+				}
 			}
 			else
 			{
