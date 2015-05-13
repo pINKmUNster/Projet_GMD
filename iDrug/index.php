@@ -10,27 +10,19 @@ else
     require("Controllers\actionSQL.php");
     new actionSql();
   }
+  
+  
   if($_GET['do']=="csv")
   {
     require("Models\TXT_CSV\Csv.php");
 	
-	
-	
 	$csv = new Csv("Data\omim_onto.csv", "r");
-	
-	
-	
-	
 	
 	echo $csv->getPath()."<br />".$csv->getRight()."<br />";
 	if ($csv->getBoolOpen() == TRUE)
 		echo "TRUE";
 	else
 		echo "FALSE";
-	
-	
-	
-	
 	
 	$csv->openCsv();
 	
@@ -41,20 +33,11 @@ else
 	else
 		echo "FALSE";
 	
-	
-	
-	
-	
 	echo '<br /><br />Line csv<br /><br />';
 	$csv->nextLine();
 	$csv->nextLine();
 	$csv->displayLine();
 	echo '<br /><br />End line<br /><br />';
-	
-	
-	
-	
-	
 	
 	$csv->closeCsv();
 	
@@ -65,11 +48,28 @@ else
 	else
 		echo "FALSE";
   }
+  
+  
   if($_GET['do']=="txt")
   {
     require("Models\TXT_CSV\Txt.php");
 	
-	$txt = new Txt();
+	$txt = new Txt("Data\omim.txt", "r");
+	$txt->openTxt();
+	
+	
+	
+	$txt->closeTxt();
+  }
+  
+  
+  if($_GET['do']=="curl")
+  {
+    $ch = curl_init("http://www.google.fr/");
+	var_dump($ch);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_exec($ch);
+	
   }
 }
 ?>
