@@ -1,5 +1,5 @@
 <?php
-	class LineTxt
+	class RecordTxt
 	{
 		
 		/*************

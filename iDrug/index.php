@@ -68,6 +68,8 @@ else
   if($_GET['do']=="txt")
   {
     require("Models\TXT_CSV\Txt.php");
+	
+	$txt = new Txt();
   }
 }
 ?>

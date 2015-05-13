@@ -1,6 +1,6 @@
 <?php
 	//Include other files
-	require('LineTxt.php');
+	require('RecordTxt.php');
 	
 	class Txt
 	{
@@ -9,7 +9,7 @@
 		* File TXT *
 		***********/
 		
-		private $lineTxt;
+		private $recordTxt;
 		private $EOF;
 		
 		
@@ -19,7 +19,7 @@
 		
 		public function __construct()
 		{
-			$this->lineTxt = new LineTxt();
+			$this->recordTxt = new RecordTxt();
 			$this->setEOF(FALSE);
 		}
 		
@@ -33,6 +33,11 @@
 			$this->EOF = $EOFTmp;
 		}
 		
+		public function setRecordTxt($recordTxtTmp)
+		{
+			$this->recordTxt = $recordTxtTmp;
+		}
+		
 		
 		/**********
 		* Getters *
@@ -41,6 +46,11 @@
 		public function getEOF()
 		{
 			return $this->EOF;
+		}
+		
+		public function getRecordTxt()
+		{
+			return $this->recordTxt;
 		}
 		
 	}
