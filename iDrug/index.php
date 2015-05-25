@@ -50,25 +50,39 @@ else
   }
   
   
-  if($_GET['do']=="txt")
-  {
-    require("Models\TXT_CSV\Txt.php");
-	
-	$txt = new Txt("Data\omim.txt", "r");
-	$txt->openTxt();
-	
-	
-	
-	$txt->closeTxt();
-  }
-  
-  
   if($_GET['do']=="curl")
   {
     $ch = curl_init("http://www.google.fr/");
 	var_dump($ch);
 	curl_setopt($ch, CURLOPT_HEADER, 0);
 	curl_exec($ch);
+	
+  }
+  
+  
+  if($_GET['do']=="index")
+  {
+	require("Models\TXT_CSV\Txt.php");
+	
+	set_time_limit(240);
+	
+    echo 'Création des index ...';
+	
+	echo '<br /><br /><br /><br />';
+	
+	
+	$txt = new Txt("Data\omim.txt", "r");
+	$txt->openTxt();
+	
+	$txt->createIndex();
+	
+	$txt->searchIndex('100070');
+	$line = $txt->readLineTxt();
+	echo $line;
+	$line = $txt->readLineTxt();
+	echo $line;
+	
+	$txt->closeTxt();
 	
   }
 }
