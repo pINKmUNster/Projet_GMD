@@ -127,14 +127,14 @@
 	  }
 	}
 	?>
-	<footer   class="footer " >
+	<!--<footer   class="footer " >
 		<nav class="nav navbar-inverse  navbar-fixed-bottom ">
 			<div class="container">
 				Designed by <a href="https://www.facebook.com/anthony.fioravanti.9?fref=ts" target="_blank">Anthony Fioravanti</a> ,<a href="" target="_blank">Gauthier Freund</a> et <a href="https://www.facebook.com/FlorianSieradzki?fref=ts" target="_blank">Florian Sieradzki</a>.
 				<div class="pull-right" >2015 all copyrigth reserved &copy; Nancy</div>
 			</div>
 		</nav>
-	</footer>
+	</footer>-->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	
 	

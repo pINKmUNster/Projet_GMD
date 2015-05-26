@@ -11,8 +11,8 @@
 		//	$dataname = $DAO -> getTable_Name();
 			
 			
-			$data_ad_1 = $DAO -> getAdverse_param_1("20965slr002_levulan_lbl");
-			$data_ind_1 = $DAO -> getIndication_param_1("20965slr002_levulan_lbl");
+			$data_ad_1 = $DAO -> getAdverse_param_1("Headache");
+			$data_ind_1 = $DAO -> getIndication_param_1("Headache");
 			
 			require_once("Views/SqlView.php");  	
 			

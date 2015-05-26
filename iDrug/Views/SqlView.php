@@ -1,15 +1,8 @@
-<html xmlns="http://www.w3.org/1999/xhtml" lang="fr_FR" xml:lang="fr_FR">
-  <head>
-    <title>
-      EXEMPLE SQL
-    </title>
-  </head>
-  <body>
-
-    <?php
+    <div class="container">
+	<?php
 	
 		
-		echo " affichage table adverse <br>" ;
+		/*echo " affichage table adverse <br>" ;
 		
 		foreach ($dataadv AS $row )
 		{
@@ -46,7 +39,7 @@
 			echo " label : ".$row["label"]." " ;
 			echo "<br>";
 		}
-		
+		*/
 		echo " affichage Medicament qui provoque" ; echo "<br>";
 		
 		foreach($data_ad_1 as $row)		
@@ -56,18 +49,18 @@
 			echo "<br>";
 		}
 		echo "<br>";
-			
+
 		echo "<br>";
-			echo " affichage Medicament qui soigne" ; 
-			foreach($data_ind_1 as $row)		
+			echo " affichage Medicament qui soigne" ;
+
+		foreach($data_ind_1 as $row)		
 		{
 			echo  "drug_name1 : ".$row["drug_name1"] ." " ;
 			echo  "drug_name2 : ".$row["drug_name2"]." " ;
 			echo "<br>";
 		}
+		echo "ok";
 				
-		
-			
+					
 	?>
-  </body>
-</html>
+ </div>
