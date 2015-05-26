@@ -1,10 +1,10 @@
 <?php
 
 
-	class adverse_effect{
+	class indications{
 		var $label;
-		var $se_cui;
-		var $se_name;
+		var $i_cui;
+		var $i_name;
 
 	}
 	

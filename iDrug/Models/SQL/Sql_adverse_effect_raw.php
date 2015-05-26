@@ -1,10 +1,22 @@
 <?php
+require_once(dirname(__FILE__).'/Sql_DAO.php');
 
 
-	class Indication{
+	class Sql_adverse_effect_raw extends DAO{
+		
 		var $label;
-		var $i_cui;
-		var $i_name;
-
+		var $se_cui;
+		var $se_name;
+		
+		public function __construct() 
+		{
+			parent::__construct(null) ; 
+		}
+		
 	}
+	
+	
+  
+ 
+ 
 ?>

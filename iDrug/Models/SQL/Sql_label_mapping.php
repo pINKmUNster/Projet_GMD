@@ -1,7 +1,7 @@
 <?php
 
 
-	class Label_mappping{
+	class label_mappping{
 		private $drug_names1;
 		private $drug_names2;
 		private $marker;

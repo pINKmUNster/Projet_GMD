@@ -1,13 +1,21 @@
 <?php
- require ("Models\SQL\Sql_adverse_effect_raw_DAO.php");
- 
-  class actionSql
- {
-  public function actionSql()
-  {
-    $Sql_adverse_effect_raw_DAO = new Sql_adverse_effect_raw_DAO ();
-    $data = $Sql_adverse_effect_raw_DAO->get_effect();
-    require("Views/affichage.phtml");  
-  }
-}
+    require_once("Models\SQL\Sql_adverse_effect_raw.php");
+	class actionSql
+	{
+		public function actionSql()
+		{
+			$DAO = new DAO(null);
+			$dataadv = $DAO->getAdverse();
+			$dataind = $DAO -> getAll_indication();
+			$datalbl = $DAO -> getAll_label();
+		//	$dataname = $DAO -> getTable_Name();
+			
+			
+			$data_ad_1 = $DAO -> getAdverse_param_1("20965slr002_levulan_lbl");
+			$data_ind_1 = $DAO -> getIndication_param_1("20965slr002_levulan_lbl");
+			
+			require_once("Views/SqlView.php");  	
+			
+		}
+	}
  ?>
