@@ -194,41 +194,97 @@
 		{
 			if ($this->boolOpen == TRUE)
 			{
-				$bool = FALSE;
 				//2'22'48
 				//23952 RECORD
 				
 				//Cursor at 0
 				$this->seek(0);
 				
+				//Column & Stack
+				$col = 0;
+				$lineTmp = "";
+				
+				//for($z = 0 ; $z < 160 ; $z++)
 				while($this->EOF == FALSE)
 				{
 					//Read a new line
 					$line = $this->readLineTxt();
 					
-					//Store the key
-					if ($bool == TRUE)
+					//New Record
+					if ($line == '*RECORD*')
 					{
-						$bool = FALSE;
-						
-						$this->indexTxt[$line] = $this->cursorPosition;
+						//Cursor position
+						$cursor = $this->cursorPosition;
 					}
 					
-					//New Key of RECORD
-					if ($line == '*FIELD* NO')
+					//Split $line
+					if(substr($line, 0, 7) == '*FIELD*')
 					{
-						$bool = TRUE;
+						if($lineTmp != "" && $col != 0)
+						{
+							//Store into indexTxt
+							if($col == 1)
+							{
+								//TI
+								
+								//First character : maybe not a number
+								if(!is_numeric(substr($lineTmp, 0, 1)))
+									$lineTmp = substr($lineTmp, 1);
+								
+								//First word : id number : 6 characters
+								$id = substr($lineTmp, 0, 6);
+								$lineTmp = substr($lineTmp, 7);
+								
+								//Array with sentence
+								//Sentence are split by ;
+								$word = explode(';', $lineTmp);
+								
+								//Index for id
+								$this->indexTxt[$id] = $cursor;
+								
+								//For each word
+								foreach($word as $label)
+								{
+									$label = trim($label);
+									
+									if($label != "")
+									{
+										$this->indexTxt[$label] = $cursor;
+									}
+								}
+								
+								//Restart
+								$lineTmp = "";
+							}
+						}
+						//[*FIELD* ]
+						if($line != '*FIELD* TI')
+							$col = 0;
 					}
+					
+					//To stack
+					if($col != 0)
+					{
+						$lineTmp = $lineTmp.$line;
+					}
+					
+					//[*FIELD* ]
+					if($line == '*FIELD* TI')
+						$col = 1;
 					
 					//EOF
 					if ($line == '*THEEND*')
 						break;
+					
+					
 				}
 			}
 			else
 			{
 				echo "TXT file not open";
 			}
+			
+			//var_dump($this->indexTxt);
 		}
 		
 		public function searchIndex($index)

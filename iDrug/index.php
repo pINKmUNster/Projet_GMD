@@ -116,11 +116,25 @@
 		
 		$txt->createIndex();
 		
-		$txt->searchIndex('100070');
+		
+		$txt->searchIndex('BBS4 GENE');
 		$line = $txt->readLineTxt();
 		echo $line;
 		$line = $txt->readLineTxt();
 		echo $line;
+		
+		$txt->searchIndex('100300');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		$txt->searchIndex('ADAMS-OLIVER SYNDROME 1');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
 		
 		$txt->closeTxt();
 		
