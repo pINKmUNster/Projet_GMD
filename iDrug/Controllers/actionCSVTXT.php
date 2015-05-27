@@ -20,7 +20,7 @@
 		
 		public function __construct()
 		{
-			
+			$this->initFile("Data\omim.txt", "r", "Data\omim_onto.csv", "r");
 		}
 		
 		

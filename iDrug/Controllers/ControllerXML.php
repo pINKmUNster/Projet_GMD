@@ -51,4 +51,37 @@ function merge_tab($t1,$t2)
 	return $t1;
 }
 
+/*CODE GAUTHIER*/
+
+//Filre required
+require_once("Controllers\actionCSVTXT.php");
+
+//Create object && Init File
+$contenu_TXT_CSV = new actionCSVTXT();
+
+if(!isset($_SESSION['save']))
+{
+	echo 'Run INDEX !';
+}
+else
+{
+	//Take index
+	$contenu_TXT_CSV->takeIndex();
+	
+	//Search
+	$dataTXTCSV = $contenu_TXT_CSV->infoSickName($disease);
+	
+	/*Contains
+	array (size=5)
+	'Preferred_Label' => string
+	'Synonyms' => string
+	'CUI' => string
+	'TX' => string
+	'CS' => string
+	*/
+	var_dump($dataTXTCSV);
+}
+
+/*END CODE GAUTHIER*/
+
 ?>

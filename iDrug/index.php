@@ -84,38 +84,22 @@
 			//Filre required
 			require_once("Controllers\actionCSVTXT.php");
 			
-			//Create object
+			//Create object && Init File
 			$contenu_TXT_CSV = new actionCSVTXT();
 			
-			//Initialisation file
-			$contenu_TXT_CSV->initFile("Data\omim.txt", "r", "Data\omim_onto.csv", "r");
+			//Messsage
+			echo 'Initialisation of index ... <br /><br />';
+			ob_flush();
+			flush();
 			
-			//Fill the object
-			if(!isset($_SESSION['save']))
-			{
-				//Messsage
-				echo 'Initialisation of index ... <br /><br />';
-				ob_flush();
-				flush();
-				
-				//Initialisation index
-				$contenu_TXT_CSV->initIndex();
-				
-				//Save index
-				$contenu_TXT_CSV->saveIndex();
-				
-				//$_SESSION
-				$_SESSION['save'] = 1;
-			}
-			else
-			{
-				//Take index
-				$contenu_TXT_CSV->takeIndex();
-			}
+			//Initialisation index
+			$contenu_TXT_CSV->initIndex();
 			
-			$data = $contenu_TXT_CSV->infoSickName('BBS4');
-			var_dump($data);
-			echo 'pour les recup txt chaque retour a la ligne est remple par | pipe';
+			//Save index
+			$contenu_TXT_CSV->saveIndex();
+			
+			//$_SESSION
+			$_SESSION['save'] = 1;
 		}
 		
 		
