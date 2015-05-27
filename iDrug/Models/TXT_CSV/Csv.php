@@ -16,6 +16,7 @@
 		private $right;
 		private $lineCsv;
 		private $EOF;
+		private $indexCsv;
 		
 		
 		/**************
@@ -30,6 +31,7 @@
 			$this->setBoolOpen(FALSE);
 			$this->setLineNumber(0);
 			$this->setEOF(FALSE);
+			$this->indexCsv = array();
 		}
 		
 		
@@ -115,7 +117,7 @@
 				$this->SplFileObject = new SplFileObject($this->path, $this->right);
 				$this->SplFileObject->setFlags(SplFileObject::READ_CSV);
 				$this->setBoolOpen(TRUE);
-				$this->setLineNumber(0);
+				$this->setLineNumber(-1);
 			}
 			else
 			{
@@ -154,29 +156,33 @@
 				// 7 => string 'Parents'
 				
 				//Data
-				$data = $this->SplFileObject->fgetcsv();
+				$this->storeLine($this->SplFileObject->fgetcsv());
 				
 				//LineNumber
-				$this->lineNumber = $this->lineNumber + 1;
-				
-				if ($this->SplFileObject->eof() == TRUE || $data[0] == NULL)
-					$this->EOF = TRUE;
-				else
-				{
-					//Load in LineCsv
-					$this->lineCsv->setClass_ID($data[0]);
-					$this->lineCsv->setPreferred_Label($data[1]);
-					$this->lineCsv->setSynonyms($data[2]);
-					$this->lineCsv->setDefinitions($data[3]);
-					$this->lineCsv->setObsolete($data[4]);
-					$this->lineCsv->setCUI($data[5]);
-					$this->lineCsv->setSemantic_Types($data[6]);
-					$this->lineCsv->setParents($data[7]);
-				}
+				$this->lineNumber = $this->SplFileObject->key();
 			}
 			else
 			{
 				echo "CSV file not open";
+			}
+		}
+		
+		//To store a line
+		public function storeLine($data)
+		{
+			if ($this->SplFileObject->eof() == TRUE || $data[0] == NULL)
+				$this->EOF = TRUE;
+			else
+			{
+				//Load in LineCsv
+				$this->lineCsv->setClass_ID($data[0]);
+				$this->lineCsv->setPreferred_Label($data[1]);
+				$this->lineCsv->setSynonyms($data[2]);
+				$this->lineCsv->setDefinitions($data[3]);
+				$this->lineCsv->setObsolete($data[4]);
+				$this->lineCsv->setCUI($data[5]);
+				$this->lineCsv->setSemantic_Types($data[6]);
+				$this->lineCsv->setParents($data[7]);
 			}
 		}
 		
@@ -194,17 +200,54 @@
 		}
 		
 		//To search a specific line
-		public function searchLine($colName, $colValue)
+		public function seek($numLine)
 		{
-			// if ($this->boolOpen == TRUE)
-			// {
-				
-			// }
-			// else
-			// {
-				// echo "CSV file not open";
-			// }
+			if ($this->boolOpen == TRUE)
+			{
+				$this->SplFileObject->seek($numLine);
+				$this->lineNumber = $this->SplFileObject->key();
+				$this->storeLine($this->SplFileObject->current());
+			}
+			else
+			{
+				echo 'CSV file not open';
+			}
 		}
 		
+		//To search a line
+		public function searchIndex($index)
+		{
+			if ($this->boolOpen == TRUE)
+			{
+				$this->seek($this->indexCsv[$index]);
+			}
+			else
+			{
+				echo 'CSV file not open';
+			}
+		}
+		
+		//To create index
+		public function createIndex()
+		{
+			if ($this->boolOpen == TRUE)
+			{
+				//2'22'48
+				//23952 RECORD
+				
+				//Cursor at 0
+				$this->seek(0);
+				
+				while($this->EOF == FALSE)
+				{
+					$this->nextLine();
+					$this->indexCsv[$this->lineCsv->getPreferred_Label()] = $this->lineNumber;
+				}
+			}
+			else
+			{
+				echo 'CSV file not open';
+			}
+		}
 	}
 ?>
