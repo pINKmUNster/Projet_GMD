@@ -22,14 +22,14 @@
 		
 		public function __construct()
 		{
-			$this->NO = "";
-			$this->TI = "";
-			$this->TX = "";
-			$this->RF = "";
-			$this->CS = "";
-			$this->CN = "";
-			$this->CD = "";
-			$this->ED = "";
+			$this->NO = '';
+			$this->TI = '';
+			$this->TX = '';
+			$this->RF = '';
+			$this->CS = '';
+			$this->CN = '';
+			$this->CD = '';
+			$this->ED = '';
 		}
 		
 		

@@ -128,7 +128,7 @@
 			}
 			else
 			{
-				echo "TXT file already open";
+				echo 'TXT file already open';
 			}
 			
 		}
@@ -143,7 +143,7 @@
 			}
 			else
 			{
-				echo "TXT file not open";
+				echo 'TXT file not open';
 			}
 		}
 		
@@ -170,7 +170,7 @@
 			}
 			else
 			{
-				echo "TXT file not open";
+				echo 'TXT file not open';
 			}
 			
 			return $line;
@@ -182,10 +182,11 @@
 			if ($this->boolOpen == TRUE)
 			{
 				fseek($this->handle, $position);
+				$this->EOF = FALSE;
 			}
 			else
 			{
-				echo "TXT file not open";
+				echo 'TXT file not open';
 			}
 		}
 		
@@ -202,7 +203,7 @@
 				
 				//Column & Stack
 				$col = 0;
-				$lineTmp = "";
+				$lineTmp = '';
 				
 				//for($z = 0 ; $z < 160 ; $z++)
 				while($this->EOF == FALSE)
@@ -220,7 +221,7 @@
 					//Split $line
 					if(substr($line, 0, 7) == '*FIELD*')
 					{
-						if($lineTmp != "" && $col != 0)
+						if($lineTmp != '' && $col != 0)
 						{
 							//Store into indexTxt
 							if($col == 1)
@@ -247,14 +248,14 @@
 								{
 									$label = trim($label);
 									
-									if($label != "")
+									if($label != '')
 									{
 										$this->indexTxt[$label] = $cursor;
 									}
 								}
 								
 								//Restart
-								$lineTmp = "";
+								$lineTmp = '';
 							}
 						}
 						//[*FIELD* ]
@@ -275,13 +276,11 @@
 					//EOF
 					if ($line == '*THEEND*')
 						break;
-					
-					
 				}
 			}
 			else
 			{
-				echo "TXT file not open";
+				echo 'TXT file not open';
 			}
 			
 			//var_dump($this->indexTxt);
@@ -295,7 +294,65 @@
 			}
 			else
 			{
-				echo "TXT file not open";
+				echo 'TXT file not open';
+			}
+		}
+		
+		public function readNextRecord()
+		{
+			$line = '';
+			$nameCol = '';
+			$varRecord = '';
+			
+			while($line != '*RECORD*')
+			{
+				//Next line
+				$line = $this->readLineTxt();
+				
+				$line = trim($line);
+				
+				if($line != '')
+				{
+					if(substr($line, 0, 7) == '*FIELD*' || $line == '*RECORD*')
+					{
+						switch ($nameCol)
+						{
+							case 'NO':
+								$this->recordTxt->setNO($varRecord);
+								break;
+							case 'TI':
+								$this->recordTxt->setTI($varRecord);
+								break;
+							case 'TX':
+								$this->recordTxt->setTX($varRecord);
+								break;
+							case 'RF':
+								$this->recordTxt->setRF($varRecord);
+								break;
+							case 'CS':
+								$this->recordTxt->setCS($varRecord);
+								break;
+							case 'CN':
+								$this->recordTxt->setCN($varRecord);
+								break;
+							case 'CD':
+								$this->recordTxt->setCD($varRecord);
+								break;
+							case 'ED':
+								$this->recordTxt->setED($varRecord);
+								break;
+							case '';
+								break;
+						}
+						
+						$varRecord = '';
+						$nameCol = substr($line, 8);
+					}
+					else
+					{
+						$varRecord = $varRecord.'|'.$line;
+					}
+				}
 			}
 		}
 	}
