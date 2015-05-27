@@ -1,6 +1,6 @@
 <?php
 	//Include other files
-	require('LineCsv.php');
+	require_once('LineCsv.php');
 	
 	class Csv
 	{
@@ -242,6 +242,7 @@
 				{
 					$this->nextLine();
 					$this->indexCsv[$this->lineCsv->getPreferred_Label()] = $this->lineNumber;
+					$this->indexCsv[$this->lineCsv->getSynonyms()] = $this->lineNumber;
 				}
 			}
 			else

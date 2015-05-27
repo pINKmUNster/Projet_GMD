@@ -1,6 +1,6 @@
 <?php
 	//Include other files
-	require('RecordTxt.php');
+	require_once('RecordTxt.php');
 	
 	class Txt
 	{
