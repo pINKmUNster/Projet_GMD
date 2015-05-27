@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 
     <head>
@@ -33,6 +32,14 @@
     </div>
 </nav>
 
+<div class="jumbotron">
+	<form action="Controllers/ControllerXML.php" method="post">
+		<p>Disease : <input type="text" name="disease" /></p>
+		<p>Drug : <input type="text" name="drug" /></p>
+		<p><input type="submit" value="OK"></p>
+	</form>
+</div>
+
 <?php
 
 	/*************
@@ -58,15 +65,16 @@
 	else
 	{
 
-			/*************
-			* Indexation *
-			*************/
+			
 		
 		if($_GET['do']=="main")
 		{
 			require_once("Views\Main.php");
 		}
-		
+			/*************
+			* Indexation *
+			*************/
+			
 		if  ($_GET['do']=="index")
 		{                    
 			//Filre required
@@ -105,6 +113,7 @@
 			//To send to other page
 			$_POST['test'] = $contenu_TXT_CSV;
 			
+
 			//Message
 			echo 'Finished !';
 		}
@@ -121,8 +130,81 @@
 			require_once("Controllers\actionSql.php");
 			new actionSql();
 		}
-		
 
+		if(!isset($_SESSION['txt']))
+		{
+			$txt = new Txt("Data\omim.txt", "r");
+			$txt->openTxt();
+			$txt->createIndex();
+			$txt->closeTxt();
+			
+			$_SESSION['txt'] = $txt;
+		}
+		else
+		{
+			$txt = $_SESSION['txt'];
+			
+			$txt->openTxt();
+			
+			$txt->searchIndex('100070');
+			
+			$txt->readNextRecord();
+			
+			var_dump($txt);
+			
+			$txt->closeTxt();
+		}
+	
+	
+	  if($_GET['do']=="index")
+	  {
+	  
+		require("Models\TXT_CSV\Txt.php");
+		
+		set_time_limit(240);
+		
+		echo 'Création des index ...';
+		
+		echo '<br /><br /><br /><br />';
+		
+		
+		$txt = new Txt("Data\omim.txt", "r");
+		$txt->openTxt();
+		
+		$txt->createIndex();
+		
+		
+		$txt->searchIndex('BBS4 GENE');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		$txt->searchIndex('100300');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		$txt->searchIndex('ADAMS-OLIVER SYNDROME 1');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		
+		$txt->closeTxt();
+		
+	  }
+	  
+	   if($_GET['do']=="xml")
+		{
+		require("Models\XML\DrugBank.php");
+		$drug = new DrugBank("headache");
+		echo "DATA**********************<br>";
+		var_dump($drug);
+		
+		}
 	}
 	?>
 	<!--<footer   class="footer " >
@@ -135,6 +217,8 @@
 	</footer>-->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	
+
 	
-<body>
+</body>
 </html>
+
