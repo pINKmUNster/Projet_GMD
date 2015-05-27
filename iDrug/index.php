@@ -43,37 +43,43 @@
 	session_start();
 	set_time_limit(300);
 	
-
 	
+	/************
+	* Main page *
+	************/
 	
-	
-
-
 	if(!isset($_GET['do'] )) 
 	{
-			/************
-			* Main page *
-			************/
 		require_once("Views\Main.php");
 	}
 	else
 	{
-
-			
+		
+		/***********
+		* Research *
+		***********/
+		
 		if($_GET['do']=="research")
 		{
 			require_once("Views\Research.php");
 		}
 		
-		if($_GET['do']=="main")
+		
+		/************
+		* Main page *
+		************/
+		
+		elseif($_GET['do']=="main")
 		{
 			require_once("Views\Main.php");
 		}
-			/*************
-			* Indexation *
-			*************/
+		
+		
+		/*************
+		* Indexation *
+		*************/
 			
-		if  ($_GET['do']=="index")
+		elseif($_GET['do']=="index")
 		{                    
 			//Filre required
 			require_once("Controllers\actionCSVTXT.php");
@@ -81,45 +87,44 @@
 			//Create object
 			$contenu_TXT_CSV = new actionCSVTXT();
 			
-			//Messsage
-			echo 'Initialisation of CSV index ... <br /><br />';
-			ob_flush();
-			flush();
-			
-			//Init CSV
-			$contenu_TXT_CSV->initCSV("Data\omim_onto.csv", "r");
-			
-			//Messsage
-			echo 'Initialisation of TXT index ... <br /><br />';
-			ob_flush();
-			flush();
-			
-			//Init TXT
-			$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
+			//Initialisation file
+			$contenu_TXT_CSV->initFile("Data\omim.txt", "r", "Data\omim_onto.csv", "r");
 			
 			//Fill the object
-			/*if(!isset($_SESSION['txtFile']))
+			if(!isset($_SESSION['save']))
 			{
-				$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
-				$_SESSION['txtFile'] = $contenu_TXT_CSV->getTXT();
+				//Messsage
+				echo 'Initialisation of index ... <br /><br />';
+				ob_flush();
+				flush();
+				
+				//Initialisation index
+				$contenu_TXT_CSV->initIndex();
+				
+				//Save index
+				$contenu_TXT_CSV->saveIndex();
+				
+				//$_SESSION
+				$_SESSION['save'] = 1;
 			}
 			else
 			{
-				$contenu_TXT_CSV->setTXT($_SESSION['txtFile']);
-			}*/
+				//Take index
+				$contenu_TXT_CSV->takeIndex();
+			}
 			
-			//To send to other page
-			$_POST['test'] = $contenu_TXT_CSV;
-			
-
-			//Message
-			echo 'Finished !';
+			$data = $contenu_TXT_CSV->infoSickName('BBS4');
+			var_dump($data);
+			echo 'pour les recup txt chaque retour a la ligne est remple par | pipe';
 		}
-		else if  ($_GET['do']=="")
+		
+		
+		
+		elseif($_GET['do']=="")
 		{                    
 			require_once("default.html");
 		}
-		else if  ($_GET['do']=="about")
+		elseif($_GET['do']=="about")
 		{                    
 			require_once("Views\about.php");
 		}
@@ -128,83 +133,15 @@
 			require_once("Controllers\actionSql.php");
 			new actionSql();
 		}
-
-		if(!isset($_SESSION['txt']))
+		elseif($_GET['do']=="xml")
 		{
-			$txt = new Txt("Data\omim.txt", "r");
-			$txt->openTxt();
-			$txt->createIndex();
-			$txt->closeTxt();
-			
-			$_SESSION['txt'] = $txt;
-		}
-		else
-		{
-			$txt = $_SESSION['txt'];
-			
-			$txt->openTxt();
-			
-			$txt->searchIndex('100070');
-			
-			$txt->readNextRecord();
-			
-			var_dump($txt);
-			
-			$txt->closeTxt();
-		}
-	
-	
-	  if($_GET['do']=="index")
-	  {
-	  
-		require("Models\TXT_CSV\Txt.php");
-		
-		set_time_limit(240);
-		
-		echo 'Création des index ...';
-		
-		echo '<br /><br /><br /><br />';
-		
-		
-		$txt = new Txt("Data\omim.txt", "r");
-		$txt->openTxt();
-		
-		$txt->createIndex();
-		
-		
-		$txt->searchIndex('BBS4 GENE');
-		$line = $txt->readLineTxt();
-		echo $line;
-		$line = $txt->readLineTxt();
-		echo $line;
-		
-		$txt->searchIndex('100300');
-		$line = $txt->readLineTxt();
-		echo $line;
-		$line = $txt->readLineTxt();
-		echo $line;
-		
-		$txt->searchIndex('ADAMS-OLIVER SYNDROME 1');
-		$line = $txt->readLineTxt();
-		echo $line;
-		$line = $txt->readLineTxt();
-		echo $line;
-		
-		
-		$txt->closeTxt();
-		
-	  }
-	  
-	   if($_GET['do']=="xml")
-		{
-		require("Models\XML\DrugBank.php");
-		$drug = new DrugBank("headache");
-		echo "DATA**********************<br>";
-		var_dump($drug);
-		
+			require("Models\XML\DrugBank.php");
+			$drug = new DrugBank("headache");
+			echo "DATA**********************<br>";
+			var_dump($drug);
 		}
 	}
-	?>
+?>
 	<!--<footer   class="footer " >
 		<nav class="nav navbar-inverse  navbar-fixed-bottom ">
 			<div class="container">

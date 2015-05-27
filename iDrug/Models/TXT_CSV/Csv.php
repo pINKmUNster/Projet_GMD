@@ -9,8 +9,9 @@
 		* File CSV *
 		***********/
 		
-		private $SplFileObject;
-		private $lineNumber;
+		//private $SplFileObject;
+		private $handle;
+		private $cursorPosition;
 		private $boolOpen;
 		private $path;
 		private $right;
@@ -29,7 +30,7 @@
 			$this->setPath($path);
 			$this->setRight($right);
 			$this->setBoolOpen(FALSE);
-			$this->setLineNumber(0);
+			$this->setCursorPosition(0);
 			$this->setEOF(FALSE);
 			$this->indexCsv = array();
 		}
@@ -54,9 +55,9 @@
 			$this->boolOpen = $boolOpenTmp;
 		}
 		
-		public function setLineNumber($lineNumberTmp)
+		public function setCursorPosition($cursorPositionTmp)
 		{
-			$this->lineNumber = $lineNumberTmp;
+			$this->cursorPosition = $cursorPositionTmp;
 		}
 		
 		public function setLineCsv($lineCsvTmp)
@@ -89,9 +90,9 @@
 			return $this->boolOpen;
 		}
 		
-		public function getLineNumber()
+		public function getCursorPosition()
 		{
-			return $this->lineNumber;
+			return $this->cursorPosition;
 		}
 		
 		public function getLineCsv()
@@ -114,10 +115,14 @@
 		{
 			if ($this->boolOpen == FALSE)
 			{
-				$this->SplFileObject = new SplFileObject($this->path, $this->right);
+				$this->handle = fopen($this->path, $this->right);
+				$this->setBoolOpen(TRUE);
+				$this->cursorPosition = -1;
+				
+				/*$this->SplFileObject = new SplFileObject($this->path, $this->right);
 				$this->SplFileObject->setFlags(SplFileObject::READ_CSV);
 				$this->setBoolOpen(TRUE);
-				$this->setLineNumber(-1);
+				$this->setLineNumber(-1);*/
 			}
 			else
 			{
@@ -132,6 +137,7 @@
 			if ($this->boolOpen == TRUE)
 			{
 				$this->setBoolOpen(FALSE);
+				fclose($this->handle);
 			}
 			else
 			{
@@ -139,12 +145,24 @@
 			}
 		}
 		
+		//To save index CSV
+		public function saveIndexCSV()
+		{
+			$_SESSION['csv'] = $this->indexCsv;
+		}
+		
+		//To take the save index CSV
+		public function takeIndexCSV()
+		{
+			$this->indexCsv = $_SESSION['csv'];
+		}
+		
 		//To recover the next line
 		public function nextLine()
 		{
 			if ($this->boolOpen == TRUE && $this->EOF == FALSE)
 			{
-				// $this->SplFileObject->fgetcsv() contains
+				// fgetcsv() contains
 				// array (size=8)
 				// 0 => string 'Class_ID'
 				// 1 => string 'Preferred_Label'
@@ -155,11 +173,19 @@
 				// 6 => string 'Semantic_Types'
 				// 7 => string 'Parents'
 				
-				//Data
-				$this->storeLine($this->SplFileObject->fgetcsv());
+				//Read line
+				$line = fgetcsv($this->handle);
 				
-				//LineNumber
-				$this->lineNumber = $this->SplFileObject->key();
+				//Cursor position
+				$this->cursorPosition = ftell($this->handle);
+				
+				//Reading error && EOF
+				if($line == FALSE || feof($this->handle) == TRUE)
+					$this->EOF = TRUE;
+				
+				//Store data
+				if($this->EOF == FALSE)
+					$this->storeLine($line);
 			}
 			else
 			{
@@ -170,20 +196,15 @@
 		//To store a line
 		public function storeLine($data)
 		{
-			if ($this->SplFileObject->eof() == TRUE || $data[0] == NULL)
-				$this->EOF = TRUE;
-			else
-			{
-				//Load in LineCsv
-				$this->lineCsv->setClass_ID($data[0]);
-				$this->lineCsv->setPreferred_Label($data[1]);
-				$this->lineCsv->setSynonyms($data[2]);
-				$this->lineCsv->setDefinitions($data[3]);
-				$this->lineCsv->setObsolete($data[4]);
-				$this->lineCsv->setCUI($data[5]);
-				$this->lineCsv->setSemantic_Types($data[6]);
-				$this->lineCsv->setParents($data[7]);
-			}
+			//Load in LineCsv
+			$this->lineCsv->setClass_ID($data[0]);
+			$this->lineCsv->setPreferred_Label($data[1]);
+			$this->lineCsv->setSynonyms($data[2]);
+			$this->lineCsv->setDefinitions($data[3]);
+			$this->lineCsv->setObsolete($data[4]);
+			$this->lineCsv->setCUI($data[5]);
+			$this->lineCsv->setSemantic_Types($data[6]);
+			$this->lineCsv->setParents($data[7]);
 		}
 		
 		//To display a CSV line
@@ -200,13 +221,13 @@
 		}
 		
 		//To search a specific line
-		public function seek($numLine)
+		public function seek($position)
 		{
 			if ($this->boolOpen == TRUE)
 			{
-				$this->SplFileObject->seek($numLine);
-				$this->lineNumber = $this->SplFileObject->key();
-				$this->storeLine($this->SplFileObject->current());
+				fseek($this->handle, $position);
+				$this->cursorPosition = $position;
+				$this->EOF = FALSE;
 			}
 			else
 			{
@@ -238,11 +259,27 @@
 				//Cursor at 0
 				$this->seek(0);
 				
-				while($this->EOF == FALSE)
+				$this->nextLine();
+				
+				while(TRUE)
 				{
+					$cursor = $this->cursorPosition;
 					$this->nextLine();
-					$this->indexCsv[$this->lineCsv->getPreferred_Label()] = $this->lineNumber;
-					$this->indexCsv[$this->lineCsv->getSynonyms()] = $this->lineNumber;
+					
+					if($this->EOF == FALSE)
+					{
+						$tmp = $this->lineCsv->getPreferred_Label();
+						
+						if($tmp != '')
+							$this->indexCsv[$tmp] = $cursor;
+						
+						$tmp = $this->lineCsv->getSynonyms();
+						
+						if($tmp != '')
+							$this->indexCsv[$tmp] = $cursor;
+					}
+					else
+						break;
 				}
 			}
 			else

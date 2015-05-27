@@ -125,6 +125,7 @@
 			{
 				$this->handle = fopen($this->path, $this->right);
 				$this->setBoolOpen(TRUE);
+				$this->cursorPosition = -1;
 			}
 			else
 			{
@@ -145,6 +146,18 @@
 			{
 				echo 'TXT file not open';
 			}
+		}
+		
+		//To save index TXT
+		public function saveIndexTXT()
+		{
+			$_SESSION['txt'] = $this->indexTxt;
+		}
+		
+		//To take the save index TXT
+		public function takeIndexTXT()
+		{
+			$this->indexTxt = $_SESSION['txt'];
 		}
 		
 		//To read a new line
@@ -182,6 +195,7 @@
 			if ($this->boolOpen == TRUE)
 			{
 				fseek($this->handle, $position);
+				$this->cursorPosition = $position;
 				$this->EOF = FALSE;
 			}
 			else

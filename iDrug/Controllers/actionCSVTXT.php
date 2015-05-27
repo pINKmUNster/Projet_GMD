@@ -59,26 +59,47 @@
 		***********/
 		
 		//To initialise TXT
-		public function initTXT($path, $right)
+		public function initFile($pathTxt, $rightTxt, $pathCsv, $rightCsv)
 		{
-			$this->txt = new Txt($path, $right);
+			$this->txt = new Txt($pathTxt, $rightTxt);
 			$this->txt->openTxt();
-			$this->txt->createIndex();
+			
+			$this->csv = new Csv($pathCsv, $rightCsv);
+			$this->csv->openCsv();
 		}
 		
 		//To initialise CSV
-		public function initCSV($path, $right)
+		public function initIndex()
 		{
-			$this->csv = new Csv($path, $right);
-			$this->csv->openCsv();
+			$this->txt->createIndex();
 			$this->csv->createIndex();
+		}
+		
+		//To save index
+		public function saveIndex()
+		{
+			$this->csv->saveIndexCSV();
+			$this->txt->saveIndexTXT();
+		}
+		
+		//To take the save index
+		public function takeIndex()
+		{
+			$this->csv->takeIndexCSV();
+			$this->txt->takeIndexTXT();
 		}
 		
 		//To obtain informations with sick name
 		public function infoSickName($sickName)
 		{
+			//DATA for informations
+			$data = array();
+			
 			//Index on CSV
 			$this->csv->searchIndex($sickName);
+			
+			//Read line
+			$this->csv->nextLine();
 			
 			//CSV Line
 			$lineCsv = $this->csv->getLineCSV();
@@ -89,11 +110,17 @@
 			//Read record
 			$this->txt->readNextRecord();
 			
+			//TXT Record
+			$recordTxt = $this->txt->getRecordTxt();
+			
 			//DATA for informations
 			$data = array();
 			$data['Preferred_Label'] = $lineCsv->getPreferred_Label();
 			$data['Synonyms'] = $lineCsv->getSynonyms();
 			$data['CUI'] = $lineCsv->getCUI();
+			
+			$data['TX'] = $recordTxt->getTX();
+			$data['CS'] = $recordTxt->getCS();
 			
 			//Return
 			return $data;
