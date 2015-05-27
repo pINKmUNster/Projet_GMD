@@ -31,16 +31,19 @@
 </nav>
 
 <?php
+
 	session_start();
+	
+	if  ($_GET['do']=="")
+	{                    
+	  require_once("default.html");
+	}
 	
 	if($_GET['do']=="main")
 	{
 		require_once("Views\Main.php");
 	}
-	if  ($_GET['do']=="")
-	{                    
-	  require_once("default.html");
-	}
+	
 	if  ($_GET['do']=="about")
 	{                    
 	  require_once("Views\about.php");
@@ -51,6 +54,10 @@
 	  {
 		require_once("Controllers\actionSQL.php");
 		new actionSql();
+	  }
+	  if($_GET['do']=="couch")
+	  {
+		require_once("Models\COUCH\couchMain.php");
 	  }
 	  
 		if($_GET['do']=="csv")

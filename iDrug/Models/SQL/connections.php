@@ -36,33 +36,6 @@ class connection extends PDO	{
 		return self::$_instance;
 		
 	}
-	
-	/*public static function bdd()
-	{
-	
-	
-
 		
-		try {
-			$PDOInstance  = new PDO("mysql:host=$servername;dbname=$name", $username, $password);
-			// set the PDO error mode to exception
-			$PDOInstance ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			echo "Connected successfully";
-			}
-		catch(PDOException $e)
-			{
-			echo "Connection failed: " . $e->getMessage();
-			}
-			
-			
-	}
-	
-	function mysql_fetch_all($query, $kind = 'assoc') {
-		$result = array();
-		$kind = $kind === 'assoc' ? $kind : 'row';
-		eval('while(@$r = mysql_fetch_'.$kind.'($query)) array_push($result, $r);');
-		return $result;
-	}*/
-	
 }
 	?> 
