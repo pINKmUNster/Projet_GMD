@@ -31,7 +31,8 @@
 </nav>
 
 <?php
-
+	session_start();
+	
 	if($_GET['do']=="main")
 	{
 		require_once("Views\Main.php");
@@ -52,20 +53,39 @@
 		new actionSql();
 	  }
 	  
-	  if($_GET['do']=="csv")
-	  {
-		require("Models\TXT_CSV\Csv.php");
-		
-		$csv = new Csv("Data\omim_onto.csv", "r");
-		
-		$csv->openCsv();
-		
-		$csv->createIndex();
-		
-		var_dump($csv);
-		
-		$csv->closeCsv();
-	  }
+		if($_GET['do']=="csv")
+		{
+			require("Models\TXT_CSV\Csv.php");
+			
+			$csv = new Csv("Data\omim_onto.csv", "r");
+			$csv->openCsv();
+			$csv->createIndex();
+			$csv->searchIndex('BBS4 GENE');
+			var_dump($csv);
+			$csv->closeCsv();
+			
+			/*if(!isset($_SESSION['csv']))
+			{
+				$csv = new Csv("Data\omim_onto.csv", "r");
+				$csv->openCsv();
+				$csv->createIndex();
+				$csv->closeCsv();
+				
+				$_SESSION['csv'] = $csv;
+			}
+			else
+			{
+				$csv = $_SESSION['csv'];
+				
+				$csv->openCsv();
+				
+				$csv->searchIndex('BBS4 GENE');
+				
+				var_dump($csv);
+				
+				$csv->closeCsv();
+			}*/
+		}
 	  
 	  
 	  if($_GET['do']=="curl")
@@ -84,7 +104,6 @@
 			
 			set_time_limit(240);
 			
-			session_start();
 			if(!isset($_SESSION['txt']))
 			{
 				$txt = new Txt("Data\omim.txt", "r");
