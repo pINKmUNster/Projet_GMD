@@ -32,13 +32,7 @@
     </div>
 </nav>
 
-<div class="jumbotron">
-	<form action="Controllers/ControllerXML.php" method="post">
-		<p>Disease : <input type="text" name="disease" /></p>
-		<p>Drug : <input type="text" name="drug" /></p>
-		<p><input type="submit" value="OK"></p>
-	</form>
-</div>
+
 
 <?php
 
@@ -66,6 +60,10 @@
 	{
 
 			
+		if($_GET['do']=="research")
+		{
+			require_once("Views\Research.php");
+		}
 		
 		if($_GET['do']=="main")
 		{

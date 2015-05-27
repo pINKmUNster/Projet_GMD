@@ -70,7 +70,8 @@ class DAO
 	
 		
 	public function getMedic_Ad($label)   // medicament qui provoque la maladie
-	{
+	{	
+		
 		 $sql ="SELECT  DISTINCT  drug_name2, se_name ,se_cui FROM adverse_effects_raw ar, label_mapping lm WHERE se_name ='$label' AND lm.label=ar.label ";
 		$requete = $this->connection->query($sql);
 		$data = $requete->fetchAll();
@@ -80,6 +81,7 @@ class DAO
 	
 	public function getMedic_Indic($label) // medicament qui soigne la maladie
 	{
+	
 		$sql ="SELECT DISTINCT  drug_name2, i_name,i_cui FROM indications_raw ir, label_mapping lm WHERE i_name='$label' AND lm.label=ir.label";
 		$requete = $this->connection->query($sql);
 		$data = $requete->fetchAll();
@@ -87,6 +89,7 @@ class DAO
 	}
 	public function getAdverse_Medic($label)
 	{
+		
 		$sql="SELECT DISTINCT se_name FROM adverse_effects_raw ad, label_mapping lm WHERE lm.drug_name2 like '%$label%' AND lm.label=ad.label";
 		$requete = $this->connection->query($sql);
 		$data = $requete->fetchAll();
@@ -94,6 +97,7 @@ class DAO
 	}
 	public function getIndic_Medic($label)
 	{
+		
 		$sql="SELECT DISTINCT i_name FROM indications_raw ir, label_mapping lm WHERE lm.drug_name2 like '%$label%' AND lm.label=ir.label";
 		$requete = $this->connection->query($sql);
 		$data = $requete->fetchAll();
