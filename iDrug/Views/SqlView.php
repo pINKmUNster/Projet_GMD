@@ -9,7 +9,7 @@
 			echo "<br>";
 		}*/
 		
-		
+		/*
 		echo " affichage Medicament qui provoque la headache" ; echo "<br>";
 		
 		foreach($data_ad_1 as $row)		
@@ -32,6 +32,27 @@
 			echo "<br>";
 		}
 		echo "ok";
+		
+		
+		echo " affichage symptome qui provoque la ibu" ; echo "<br>";
+		
+		foreach($data_adv_med as $row)		
+		{
+			
+			echo  "se_name : ".$row["se_name"]." " ;
+			echo "<br>";
+		}
+		echo "<br>";
+		*/
+		echo " affichage indic pour ibu" ; echo "<br>";
+		
+		foreach($data_ind_med as $row)		
+		{
+			
+			echo  "i_name : ".$row["i_name"]." " ;
+			echo "<br>";
+		}
+		echo "<br>";
 						
 	?>
  </div>
