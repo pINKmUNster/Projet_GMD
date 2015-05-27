@@ -78,12 +78,12 @@
 			$indication = ($xml->drug[$i]->indication);
 			$toxicity = ($xml->drug[$i]->toxicity);
 			//search coorespundance with the desease
-			if (strpos($indication,$this->m_disease) !== false) 
+			if (strpos(strtoupper($indication),strtoupper($this->m_disease)) !== false) 
 			{
 				$this->m_TabIndication[$i] = $drug;
 			}
 			
-			if (strpos($toxicity,$this->m_disease) !== false) 
+			if (strpos(strtoupper($toxicity),strtoupper($this->m_disease)) !== false) 
 			{
 				$this->m_TabToxicity[$i] = $drug;
 			}
