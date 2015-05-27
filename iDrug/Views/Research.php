@@ -5,7 +5,7 @@
 			<div class="form-group">
 				<label for="disease" class="col-sm-2 control-label">Disease :</label>
 				<div class="col-sm-5">
-					<input type="email" class="form-control" id="Disease"  name="disease" placeholder="Disease">
+					<input type="text" class="form-control" id="Disease"  name="disease" placeholder="Disease">
 				</div>
 			</div>
 			<div class="form-group">

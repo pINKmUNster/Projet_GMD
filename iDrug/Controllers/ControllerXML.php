@@ -13,27 +13,62 @@ $dao = new DAO(null);
 if(!empty($drug))
 {
 	$data->getDataByDrug();
+	echo "XML"."<br>";
 	$sqlAdverseMedic=$dao->getAdverse_Medic($drug);
 	$sqlIndicMedic=$dao->getIndic_Medic($drug);
+	echo "SQL"."<br>";
 }
 if(!empty($disease))
 {
 	$data->getDataByDisease();
-	$sqlAdverseDisease = $DAO -> getMedic_Ad($disease);
-	$sqlIndicDisease = $DAO -> getMedic_Indic($disease);
-}
+
+	echo "XML"."<br>";
+	$sqlAdverseDisease = $dao -> getMedic_Ad($disease);
+	$sqlIndicDisease = $dao-> getMedic_Indic($disease);
+	echo "SQL"."<br>";
+	}
 //Query
-var_dump($sqlIndicMedic);
+
+	
+
+//Query
+
+/*
+>>>>>>> Stashed changes
 echo "indication : ".$data->get_drugIndication();
 echo "<br>";
 echo "toxicity : ".$data->get_drugToxicity();
 echo "<br>";
-foreach ($data->get_indication() as $indi)
+*/
+$sqlIndicDisease=array_values($sqlIndicDisease);
+$tab=$data->get_toxicity();
+echo count($tab)."<br>";
+echo count($sqlIndicDisease)."<br>";
+$tab=merge_tab($sqlIndicDisease,$tab,'Drug');
+echo count($tab)."<br>";
+
+foreach ($sqlIndicDisease as $indi)
 {
-	echo $indi ."<br>";
+	echo $indi['Drug'] ."<br>";
 }
 
-
+//Function to merge 2 array
+function merge_tab($t1,$t2,$type)
+{	
+	
+	//initialize the counter at size of t1
+	$i = 0;
+	//add in t3 all cells of t2 not in t1
+	foreach($t2 as $t[$type])
+	{
+		if (!(in_array($t, $t1))) 
+		{
+			$temp[$i] = $t;
+			$i++;
+		}
+	}
+	return array_merge($temp,$t1);
+}
 
 /*CODE GAUTHIER*/
 
@@ -64,6 +99,7 @@ else
 	'CS' => string
 	*/
 	var_dump($dataTXTCSV);
+
 }
 
 /*END CODE GAUTHIER*/
