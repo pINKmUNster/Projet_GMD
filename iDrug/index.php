@@ -30,6 +30,14 @@
     </div>
 </nav>
 
+<div class="jumbotron">
+	<form action="Controllers/ControllerXML.php" method="post">
+		<p>Desease : <input type="text" name="desease" /></p>
+		<p>Drug : <input type="text" name="drug" /></p>
+		<p><input type="submit" value="OK"></p>
+	</form>
+</div>
+
 <?php
 
 	session_start();
@@ -134,6 +142,55 @@
 				
 				$txt->closeTxt();
 			}
+			
+	  if($_GET['do']=="index")
+	  {
+	  
+		require("Models\TXT_CSV\Txt.php");
+		
+		set_time_limit(240);
+		
+		echo 'Création des index ...';
+		
+		echo '<br /><br /><br /><br />';
+		
+		
+		$txt = new Txt("Data\omim.txt", "r");
+		$txt->openTxt();
+		
+		$txt->createIndex();
+		
+		
+		$txt->searchIndex('BBS4 GENE');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		$txt->searchIndex('100300');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		$txt->searchIndex('ADAMS-OLIVER SYNDROME 1');
+		$line = $txt->readLineTxt();
+		echo $line;
+		$line = $txt->readLineTxt();
+		echo $line;
+		
+		
+		$txt->closeTxt();
+		
+	  }
+	  
+	   if($_GET['do']=="xml")
+		{
+		require("Models\XML\DrugBank.php");
+		$drug = new DrugBank("headache");
+		echo "DATA**********************<br>";
+		var_dump($drug);
+		
 		}
 	}
 	?>
@@ -148,4 +205,5 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	
 	
-<body>
+</body>
+
