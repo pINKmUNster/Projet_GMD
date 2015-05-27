@@ -42,162 +42,87 @@
 	session_start();
 	set_time_limit(300);
 	
+
 	
-	/************
-	* Main page *
-	************/
 	
-	if($_GET['do']=="main")
+	
+
+
+	if(!isset($_GET['do'] )) 
 	{
+			/************
+			* Main page *
+			************/
 		require_once("Views\Main.php");
-		
-		if(isset($_POST['test']))
-			echo 'ok';
-	}
-	
-	
-	/*************
-	* Indexation *
-	*************/
-	
-	else if  ($_GET['do']=="index")
-	{                    
-		//Filre required
-		require_once("Controllers\actionCSVTXT.php");
-		
-		//Create object
-		$contenu_TXT_CSV = new actionCSVTXT();
-		
-		//Messsage
-		echo 'Initialisation of CSV index ... <br /><br />';
-		ob_flush();
-		flush();
-		
-		//Init CSV
-		$contenu_TXT_CSV->initCSV("Data\omim_onto.csv", "r");
-		
-		//Messsage
-		echo 'Initialisation of TXT index ... <br /><br />';
-		ob_flush();
-		flush();
-		
-		//Init TXT
-		$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
-		
-		//Fill the object
-		/*if(!isset($_SESSION['txtFile']))
-		{
-			$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
-			$_SESSION['txtFile'] = $contenu_TXT_CSV->getTXT();
-		}
-		else
-		{
-			$contenu_TXT_CSV->setTXT($_SESSION['txtFile']);
-		}*/
-		
-		//To send to other page
-		$_POST['test'] = $contenu_TXT_CSV;
-		
-		//Message
-		echo 'Finished !';
-	}
-	
-	
-	else if  ($_GET['do']=="")
-	{                    
-		require_once("default.html");
-	}
-	else if  ($_GET['do']=="about")
-	{                    
-		require_once("Views\about.php");
 	}
 	else
 	{
-	  if($_GET['do']=="sql")
-	  {
-		require_once("Controllers\actionSQL.php");
-		new actionSql();
-	  }
-	  if($_GET['do']=="couch")
-	  {
-		require_once("Models\COUCH\couchMain.php");
-	  }
-	  
-		if($_GET['do']=="csv")
-		{
-			require("Models\TXT_CSV\Csv.php");
-			
-			/*$csv = new Csv("Data\omim_onto.csv", "r");
-			$csv->openCsv();
-			$csv->createIndex();
-			$csv->searchIndex('BBS4 GENE');
-			var_dump($csv);
-			$csv->closeCsv();*/
-			
-			/*if(!isset($_SESSION['csv']))
-			{
-				$csv = new Csv("Data\omim_onto.csv", "r");
-				$csv->openCsv();
-				$csv->createIndex();
-				$csv->closeCsv();
-				
-				$_SESSION['csv'] = $csv;
-			}
-			else
-			{
-				$csv = $_SESSION['csv'];
-				
-				$csv->openCsv();
-				
-				$csv->searchIndex('BBS4 GENE');
-				
-				var_dump($csv);
-				
-				$csv->closeCsv();
-			}*/
-		}
-	  
-	  
-	  if($_GET['do']=="curl")
-	  {
-		$ch = curl_init("http://www.google.fr/");
-		var_dump($ch);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_exec($ch);
+
+			/*************
+			* Indexation *
+			*************/
 		
-	  }
-	  
-	  
-		/*if($_GET['do']=="index")
+		if($_GET['do']=="main")
 		{
-			require("Models\TXT_CSV\Txt.php");
+			require_once("Views\Main.php");
+		}
+		
+		if  ($_GET['do']=="index")
+		{                    
+			//Filre required
+			require_once("Controllers\actionCSVTXT.php");
 			
-			set_time_limit(240);
+			//Create object
+			$contenu_TXT_CSV = new actionCSVTXT();
 			
-			if(!isset($_SESSION['txt']))
+			//Messsage
+			echo 'Initialisation of CSV index ... <br /><br />';
+			ob_flush();
+			flush();
+			
+			//Init CSV
+			$contenu_TXT_CSV->initCSV("Data\omim_onto.csv", "r");
+			
+			//Messsage
+			echo 'Initialisation of TXT index ... <br /><br />';
+			ob_flush();
+			flush();
+			
+			//Init TXT
+			$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
+			
+			//Fill the object
+			/*if(!isset($_SESSION['txtFile']))
 			{
-				$txt = new Txt("Data\omim.txt", "r");
-				$txt->openTxt();
-				$txt->createIndex();
-				$txt->closeTxt();
-				
-				$_SESSION['txt'] = $txt;
+				$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
+				$_SESSION['txtFile'] = $contenu_TXT_CSV->getTXT();
 			}
 			else
 			{
-				$txt = $_SESSION['txt'];
-				
-				$txt->openTxt();
-				
-				$txt->searchIndex('100070');
-				
-				$txt->readNextRecord();
-				
-				var_dump($txt);
-				
-				$txt->closeTxt();
-			}
-		}*/
+				$contenu_TXT_CSV->setTXT($_SESSION['txtFile']);
+			}*/
+			
+			//To send to other page
+			$_POST['test'] = $contenu_TXT_CSV;
+			
+			//Message
+			echo 'Finished !';
+		}
+		else if  ($_GET['do']=="")
+		{                    
+			require_once("default.html");
+		}
+		else if  ($_GET['do']=="about")
+		{                    
+			require_once("Views\about.php");
+		}
+		elseif($_GET['do']=="sql")
+		{
+			require_once("Controllers\actionSql.php");
+			new actionSql();
+		}
+		
+
 	}
 	?>
 	<!--<footer   class="footer " >
@@ -212,3 +137,4 @@
 	
 	
 <body>
+</html>
