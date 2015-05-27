@@ -19,6 +19,9 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="index.php?do=main">iDrug</a>
         </div>
+		<div class="navbar-header">
+            <a class="navbar-brand" href="index.php?do=index">Index</a>
+        </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
             </ul>
@@ -32,21 +35,81 @@
 
 <?php
 
-	session_start();
+	/*************
+	* Parameters *
+	*************/
 	
-	if  ($_GET['do']=="")
-	{                    
-	  require_once("default.html");
-	}
+	session_start();
+	set_time_limit(300);
+	
+	
+	/************
+	* Main page *
+	************/
 	
 	if($_GET['do']=="main")
 	{
 		require_once("Views\Main.php");
+		
+		if(isset($_POST['test']))
+			echo 'ok';
 	}
 	
-	if  ($_GET['do']=="about")
+	
+	/*************
+	* Indexation *
+	*************/
+	
+	else if  ($_GET['do']=="index")
 	{                    
-	  require_once("Views\about.php");
+		//Filre required
+		require_once("Controllers\actionCSVTXT.php");
+		
+		//Create object
+		$contenu_TXT_CSV = new actionCSVTXT();
+		
+		//Messsage
+		echo 'Initialisation of CSV index ... <br /><br />';
+		ob_flush();
+		flush();
+		
+		//Init CSV
+		$contenu_TXT_CSV->initCSV("Data\omim_onto.csv", "r");
+		
+		//Messsage
+		echo 'Initialisation of TXT index ... <br /><br />';
+		ob_flush();
+		flush();
+		
+		//Init TXT
+		$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
+		
+		//Fill the object
+		/*if(!isset($_SESSION['txtFile']))
+		{
+			$contenu_TXT_CSV->initTXT("Data\omim.txt", "r");
+			$_SESSION['txtFile'] = $contenu_TXT_CSV->getTXT();
+		}
+		else
+		{
+			$contenu_TXT_CSV->setTXT($_SESSION['txtFile']);
+		}*/
+		
+		//To send to other page
+		$_POST['test'] = $contenu_TXT_CSV;
+		
+		//Message
+		echo 'Finished !';
+	}
+	
+	
+	else if  ($_GET['do']=="")
+	{                    
+		require_once("default.html");
+	}
+	else if  ($_GET['do']=="about")
+	{                    
+		require_once("Views\about.php");
 	}
 	else
 	{
@@ -64,12 +127,12 @@
 		{
 			require("Models\TXT_CSV\Csv.php");
 			
-			$csv = new Csv("Data\omim_onto.csv", "r");
+			/*$csv = new Csv("Data\omim_onto.csv", "r");
 			$csv->openCsv();
 			$csv->createIndex();
 			$csv->searchIndex('BBS4 GENE');
 			var_dump($csv);
-			$csv->closeCsv();
+			$csv->closeCsv();*/
 			
 			/*if(!isset($_SESSION['csv']))
 			{
@@ -105,7 +168,7 @@
 	  }
 	  
 	  
-		if($_GET['do']=="index")
+		/*if($_GET['do']=="index")
 		{
 			require("Models\TXT_CSV\Txt.php");
 			
@@ -134,7 +197,7 @@
 				
 				$txt->closeTxt();
 			}
-		}
+		}*/
 	}
 	?>
 	<!--<footer   class="footer " >
