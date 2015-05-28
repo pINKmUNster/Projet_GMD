@@ -1,6 +1,7 @@
 <?php
 require("..\Models\XML\DrugBank.php");
 require("..\Models\SQL\Sql_DAO.php");
+require("..\Models\COUCH\CouchDB.php");
 
 $disease = $_POST['disease'];
 $drug = $_POST['drug'];
@@ -8,6 +9,8 @@ $drug = $_POST['drug'];
 //Instance variable;
 $data = new DrugBank($disease,$drug);
 $dao = new DAO(null);
+$couch = new CouchDB();
+
 
 //query
 if(!empty($drug))
@@ -29,9 +32,6 @@ if(!empty($disease))
 	}
 //Query
 
-	
-
-//Query
 
 /*
 >>>>>>> Stashed changes
